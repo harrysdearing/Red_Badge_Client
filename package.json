@@ -1,0 +1,26 @@
+{
+  "name": "project-client",
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "serve": "vite preview"
+  },
+  "dependencies": {
+    "antd": "^4.15.0",
+    "bootstrap": "^4.6.0",
+    "buffer": "^6.0.3",
+    "react": "^17.0.2",
+    "react-bootstrap": "^1.5.2",
+    "react-dom": "^17.0.2",
+    "reactstrap": "^8.9.0"
+  },
+  "devDependencies": {
+    "@types/node": "^14.14.37",
+    "@types/react": "^17.0.0",
+    "@types/react-dom": "^17.0.0",
+    "@vitejs/plugin-react-refresh": "^1.3.1",
+    "typescript": "^4.1.2",
+    "vite": "^2.1.0"
+  }
+}
