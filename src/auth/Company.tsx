@@ -1,5 +1,4 @@
 import React from 'react';
-import Signup from './Signup';
 import {Form, Button, Label, Input} from 'reactstrap';
 
 interface CompanyProps {
@@ -22,7 +21,6 @@ interface CompanyState {
     state: string,
     zip: string,
     toggle: boolean,
-    userCompany: any,
     companyOptions: any[],
     fN: string,
     lN: string,
@@ -37,13 +35,12 @@ class Company extends React.Component <CompanyProps, CompanyState> {
         this.state = {
             companyId: 0,
             companyName: '',
-            currency: '',
+            currency: 'USD',
             address: '',
             city: '',
             state: '',
             zip: '',
             toggle: false,
-            userCompany: '',
             companyOptions: [],
             fN: '',
             lN: '',
@@ -53,21 +50,8 @@ class Company extends React.Component <CompanyProps, CompanyState> {
         }
     }
 
-    findCompany = (): void  => {
-        fetch(`http://localhost:3000/company/getcompanies`, {
-            method: 'GET',
-            headers: new Headers({
-                "Content-Type": "application/json",
-                "Accept": "application/json"
-            }),
-        })
-        .then((res) => res.json())
-        .then((json) => {
-            this.setState({companyOptions: json})
-        })
-    }
-
     addCompany = (event: React.MouseEvent<HTMLButtonElement>) => {
+        event.preventDefault();
         fetch(`http://localhost:3000/company/registercompany`, {
             method: 'POST',
             body: JSON.stringify({
@@ -97,39 +81,15 @@ class Company extends React.Component <CompanyProps, CompanyState> {
         console.log(this.state.toggle);
     }
 
-    handleCompany = () => {
-        this.state.userCompany.split(' ');
-        console.log('did you store the company?', this.state.userCompany);
-    }
 
     componentDidMount(){
         this.addCompany
-        this.findCompany()
-        this.handleCompany()
-    }
-
-    componentWillUnmount(){
-        this.findCompany
     }
 
     render(){
         console.log('Company Props', this)
         return (
             <div>
-                <Form>
-                    <Label>
-                        Select Your Current Company
-                        <select onChange={(e: any) => {this.setState({userCompany: e.target.value})}}>
-                        {this.state.companyOptions.map((company) => {
-                            return (
-                                <option key={company.id}>
-                                    {company.companyName}
-                                </option>
-                            )
-                        })}
-                        </select>
-                    </Label>
-                </Form>
                 <Button onClick={(e: any) => this.handleToggle(e.currentTarget.value)}>Add New Company</Button>
                 {this.state.toggle == true ?
                     <Form style={{float: 'right'}}>
@@ -138,8 +98,8 @@ class Company extends React.Component <CompanyProps, CompanyState> {
                                 <label id="suLabel" htmlFor="companyName">Company Name</label>
                                 <input id="textBox" onChange={(e)=>this.setState({companyName: e.target.value})} name = "companyName" value={this.state.companyName}/>
                             </div>
-                            <select onChange={(e)=>this.setState({currency: e.target.value})}>
-                                <option value="USD">USD</option>
+                            <select onChange={(e)=>this.setState({currency: e.target.value})} name="currency" value={this.state.currency}>
+                                <option>USD</option>
                             </select>
                             <div>
                                 <label id="suLabel" htmlFor="address">Address</label>

@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import React,{useState, useEffect} from 'react';
 import Company from './Company';
 import { Modal, ModalHeader, ModalBody, Button } from 'reactstrap';
 
@@ -14,6 +14,9 @@ const Signup: React.FC<SignupProps> = (props: SignupProps): any=>{
     const [username,setUsername]=useState('');
     const [password,setPassword]=useState('');
     const [authenticated, setAuthenticated] = useState(false);
+    const [companyOptions, setCompanyOptions] = useState<any[]>([]);
+    const [userCompany, setUserCompany] = useState(1);
+    console.log('Can I get the company?', props);
 
     const handleSubmit = (event: any) => {
         event.preventDefault()
@@ -25,6 +28,7 @@ const Signup: React.FC<SignupProps> = (props: SignupProps): any=>{
                 role: role,
                 username: username,
                 password: password,
+                companyId: Number(userCompany)
             }}),
             headers: new Headers({
                 'Content-Type':'application/json'
@@ -39,6 +43,20 @@ const Signup: React.FC<SignupProps> = (props: SignupProps): any=>{
             }
         })
     }
+
+    useEffect(() => {
+        fetch(`http://localhost:3000/company/getcompanies`, {
+            method: 'GET',
+            headers: new Headers({
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            }),
+        })
+        .then((res) => res.json())
+        .then((json) => {
+            setCompanyOptions(json)
+        })
+    }, [])
 
     return(
         <div style={{margin:'auto'}}>
@@ -59,6 +77,23 @@ const Signup: React.FC<SignupProps> = (props: SignupProps): any=>{
                         <option>Manager</option>
                         <option>Administrator</option>
                     </select>
+                </div>
+                <div>
+                    <label>
+                        Select Your Current Company
+                        <select onChange={(e: any) => setUserCompany(e.target.value)} value={userCompany}>
+                        {companyOptions.map((company) => {
+                            console.log('is the event working', typeof userCompany);
+                            console.log('what is the event', userCompany);
+                            return (
+                                <option key={company.id}>
+                                    {console.log(userCompany)}
+                                    {company.companyName}
+                                </option>
+                            )
+                        })}
+                        </select>
+                    </label>
                 </div>
                 <div>
                     <label id="suLabel" htmlFor="username">Username</label>
