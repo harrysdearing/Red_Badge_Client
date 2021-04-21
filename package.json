@@ -7,6 +7,10 @@
     "serve": "vite preview"
   },
   "dependencies": {
+    "@material-ui/core": "^4.11.3",
+    "@material-ui/icons": "^4.11.2",
+    "@material-ui/lab": "^4.0.0-alpha.57",
+    "@material-ui/utils": "^4.11.2",
     "antd": "^4.15.0",
     "bootstrap": "^4.6.0",
     "buffer": "^6.0.3",

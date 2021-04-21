@@ -2,11 +2,17 @@ import React, { useState } from 'react';
 // import {
 //   BrowserRouter as Router
 // } from 'react-router-dom';
-import Header from './home/Navbar';
+// import Header from './home/Navbar';
 import Auth from './auth/Auth';
 import Home from './home/Home';
+import Header from './home/Navbar2';
 
-function App() {
+// interface AppProps {
+//   isOpen: boolean,
+//   clickLogout: any
+// }
+
+function App(props: any) {
   const [sessionToken, setSessionToken] = useState('');
 
   const updateToken = (newToken: string) => {
@@ -22,7 +28,7 @@ function App() {
   const protectedViews = () => {
     return (
       sessionToken === localStorage.getItem('token') ? 
-      <Home token={sessionToken}/>
+      <Home updateToken={updateToken} sessionToken={sessionToken}/>
       : 
       <Auth updateToken={updateToken} sessionToken={sessionToken}/>
     )

@@ -2,8 +2,8 @@ import React from 'react';
 
 
 interface PrinterProps {
-    customerArray: any[],
-    token: string
+    // customerArray: any[],
+    // token: string
 }
 
 
@@ -33,7 +33,8 @@ class PrinterFetch extends React.Component <PrinterProps, PrinterState>{
         // const token = 'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIzN2QxMTdjNzJkNTU0Nzk0YmViNTkwYmE0YTM0MDIyZiIsImV4cCI6MTYxNzY3NDU5NX0.RC0dULGO1Oq230RsgfAAEETlLBxyvSmzLNsIodJgd11L05UacFF2oguEYpP8g2nXSRkFd5hBck5RJoiyTxgR7w';
         var myHeaders = new Headers();
         myHeaders.append("Accept", "application/json");
-        myHeaders.append("Authorization", `Bearer ${this.props.token}`);
+        // myHeaders.append("Authorization", `Bearer ${this.props.token}`);
+        myHeaders.append("Authorization", `Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIzN2QxMTdjNzJkNTU0Nzk0YmViNTkwYmE0YTM0MDIyZiIsImV4cCI6MTYxODUyNTUxMH0.3vOyH2vzG2Vl6a12XzpitH5426xyDuQI1dkVA0j3j3Cb7cBLqvQaD1IYzSyD2HT0WEvkpiITuxYElBABk2snEA`);
         myHeaders.append("Cookie", "JSESSIONID=8BD372F56EA832409B38F5DFA008757B");
 
         var requestOptions: any = {
@@ -42,10 +43,11 @@ class PrinterFetch extends React.Component <PrinterProps, PrinterState>{
         redirect: 'follow'
         };
 
-        fetch("https://insight.axessmps.com/PortalAPI/api/devices/meters/8", requestOptions)
+        // fetch("https://insight.axessmps.com/PortalAPI/api/devices?customerId=2&includeExtendedFields=true", requestOptions)  this is the fetch for the devices
+        fetch("https://insight.axessmps.com/PortalAPI/api/devices/meters/2?billingDate=2021-03-13", requestOptions)
         .then(response => response.json())
         .then(result => {
-                // console.log('Printer Data', result);
+                console.log('Printer Data', result);
         })
         .catch(error => console.log('error', error));
     }
@@ -56,7 +58,6 @@ class PrinterFetch extends React.Component <PrinterProps, PrinterState>{
     }
 
     render(){
-        // this.PrinterFetch()
         return (
             <div>
                 <h1>Printer Fetch</h1>

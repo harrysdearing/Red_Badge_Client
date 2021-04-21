@@ -1,5 +1,8 @@
 import React from 'react';
-import {Form, Button, Label, Input} from 'reactstrap';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import Container from '@material-ui/core/Container';
+import {Modal, Button} from '@material-ui/core';
+import Backdrop from '@material-ui/core/Backdrop';
 
 interface CompanyProps {
     fN: string,
@@ -26,7 +29,9 @@ interface CompanyState {
     lN: string,
     role: string,
     username: string,
-    password: string
+    password: string,
+    open: boolean,
+    close: boolean
 }
 
 class Company extends React.Component <CompanyProps, CompanyState> {
@@ -46,7 +51,9 @@ class Company extends React.Component <CompanyProps, CompanyState> {
             lN: '',
             role: '',
             username: '',
-            password: ''
+            password: '',
+            open: true,
+            close: true
         }
     }
 
@@ -77,9 +84,18 @@ class Company extends React.Component <CompanyProps, CompanyState> {
     }
 
     handleToggle = (event: React.MouseEvent<HTMLButtonElement> ): void => {
-        this.setState({toggle: !this.state.toggle})
+
+        this.setState({
+            toggle: true,
+        })
         console.log(this.state.toggle);
     }
+
+    handleClose = () => {
+        this.setState({
+            open: false
+        })
+      };
 
 
     componentDidMount(){
@@ -89,11 +105,30 @@ class Company extends React.Component <CompanyProps, CompanyState> {
     render(){
         console.log('Company Props', this)
         return (
-            <div>
-                <Button onClick={(e: any) => this.handleToggle(e.currentTarget.value)}>Add New Company</Button>
+            <React.Fragment>
+                <CssBaseline />
+                <Container maxWidth="sm">
+                <Button onClick={(e: any) => {
+                    this.handleToggle(e.currentTarget.value);
+                    this.setState({open: true})
+                }}
+                variant="contained" color="primary"
+                >Add New Company</Button>
                 {this.state.toggle == true ?
-                    <Form style={{float: 'right'}}>
-                        <h1>Add A Brand New Company</h1>
+                    <Modal
+                        aria-labelledby="transition-modal-title"
+                        aria-describedby="transition-modal-description"
+                        open={this.state.open}
+                        onClose={this.handleClose}
+                        closeAfterTransition
+                        BackdropComponent={Backdrop}
+                        BackdropProps={{
+                        timeout: 500,
+                        }}
+                    >
+                        <Container maxWidth="sm" style={{backgroundColor: '#32a8a6', margin: 'auto', color: 'white', alignContent: 'center'}}>
+                        <div>
+                            <h1>Add A Brand New Company</h1>
                             <div>
                                 <label id="suLabel" htmlFor="companyName">Company Name</label>
                                 <input id="textBox" onChange={(e)=>this.setState({companyName: e.target.value})} name = "companyName" value={this.state.companyName}/>
@@ -117,13 +152,17 @@ class Company extends React.Component <CompanyProps, CompanyState> {
                                 <label id="suLabel" htmlFor="zip">Postal Code</label>
                                 <input id="textBox" onChange={(e)=>this.setState({zip: e.target.value})} name = "zip" value={this.state.zip}/>
                             </div>
-                            <Button onClick={this.addCompany}>Save Info</Button>
-
-                    </Form>
+                            <br/>
+                            <Button onClick={this.addCompany} variant="contained" color="primary">Save Info</Button>
+                            <Button onClick={() => this.setState({open: false})} variant="contained" color="secondary">Close</Button>
+                        </div>
+                        </Container>
+                    </Modal>
                 :
                 <p></p>
                 }
-            </div>
+                </Container>
+            </React.Fragment>
         )
     }
 }

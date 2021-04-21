@@ -1,7 +1,14 @@
 // import { Buffer } from 'buffer';
 import React from 'react';
-import PrinterFetch from './PrintersFetch';
-
+import Select from "@material-ui/core/Select";
+import MenuItem from "@material-ui/core/MenuItem";
+import Button from '@material-ui/core/Button';
+import Table from "@material-ui/core/Table";
+import TableHead from "@material-ui/core/TableHead";
+import TableRow from "@material-ui/core/TableRow";
+import TableCell from "@material-ui/core/TableCell";
+import TableBody from "@material-ui/core/TableBody";
+import './style.css';
 
 interface FetchProps {
 }
@@ -14,7 +21,7 @@ interface FetchState {
     customerId: number[],
     startDate: any,
     endDate: any,
-    cycle: string,
+    cycle: any,
     token: string,
     testData: any
 }
@@ -26,6 +33,7 @@ class EKM_Fetch extends React.Component <FetchProps, FetchState>{
             customerData: [],
             finalArray: [],
             customers: [],
+
             customerId: [],
             startDate: '',
             endDate: '',
@@ -34,9 +42,9 @@ class EKM_Fetch extends React.Component <FetchProps, FetchState>{
             testData: ''
         }
         // this.handleStartDate = this.handleStartDate.bind(this);
-        // this.handleEndDate = this.handleEndDate.bind(this);
         this.handleSave = this.handleSave.bind(this);
     }
+
 
     EKMFetch = () => {
 
@@ -67,6 +75,7 @@ class EKM_Fetch extends React.Component <FetchProps, FetchState>{
             headers: myHeadersCustomers,
             redirect: 'follow'
             };
+            console.log('token', this.state.token);
 
             fetch("https://insight.axessmps.com/PortalAPI/api/customers", requestOptions)
             .then(response => response.json())
@@ -105,7 +114,6 @@ class EKM_Fetch extends React.Component <FetchProps, FetchState>{
         })
         console.log('Save button', this.state.finalArray);
     }
-    
 
     componentDidMount(){
         this.EKMFetch();
@@ -115,28 +123,46 @@ class EKM_Fetch extends React.Component <FetchProps, FetchState>{
     }
 
     render(){
-        console.log('state', this.state.startDate)
         return (
             <div>
-                <h1>Fetching EKM API</h1>
-                {this.state.customerData.map((groups: any, index: any) => {
-                    return (
-                        <form key={index}>
-                            <p>{groups.customers}</p>
-                            <label>Enter Contract Start Date</label>
-                            <input type="text" placeholder="Contract Start Date" name="startDate" onChange={(e) => this.setState({startDate: e.target.value})}
-                            />
-                            <input type="text" placeholder="Contract End Date" name="endDate" onChange={(e) => this.setState({endDate: e.target.value})}/> 
-                            <select onChange={(e) => this.setState({cycle: e.target.value})}>
-                                <option value="Monthly">Monthly</option>
-                                <option value="Quarterly">Quarterly</option>
-                            </select>
-                            <button onClick={this.handleSave}>Save Data</button>
-                        </form>
-                    )
-                })}
-                <PrinterFetch customerArray={this.state.customerData} token={this.state.token}/>
-            </div>
+                    <h1>Fetching EKM API</h1>
+                            <Table>
+                                <TableHead color="inherit" >
+                                    <TableRow>
+                                        <TableCell>CustomerName</TableCell>
+                                        <TableCell>Contract Start Date</TableCell>
+                                        <TableCell>Contract End Date</TableCell>
+                                        <TableCell>Billing Cycle</TableCell>
+                                        <TableCell>Save Info</TableCell>
+                                    </TableRow>
+                                </TableHead>
+                                <TableBody>
+                                {this.state.customerData.map((groups: any, index: any) => {
+                                    return (
+                                    <TableRow key={index}>
+                                        <TableCell>
+                                            <p>{groups.customers}</p>
+                                        </TableCell>
+                                        <TableCell>
+                                            <input type="date" placeholder="Enter Start Date" name="startDate" onChange={(e) => this.setState({startDate: e.target.value})}/>
+                                        </TableCell>
+                                        <TableCell>
+                                            <input type="date" placeholder="Enter End Date" name="endDate" onChange={(e) => this.setState({endDate: e.target.value})}/> 
+                                        </TableCell>
+                                        <TableCell>
+                                            <Select onChange={(e) => this.setState({cycle: e.target.value})}>
+                                                <MenuItem value="Monthly">Monthly</MenuItem>
+                                                <MenuItem value="Quarterly">Quarterly</MenuItem>
+                                            </Select>
+                                        </TableCell>
+                                        <TableCell>
+                                            <Button onClick={this.handleSave} variant="contained" color="primary">Save Data</Button>
+                                        </TableCell>
+                                    </TableRow>
+                                )})}
+                                </TableBody>
+                            </Table>
+            </div> 
         );
     }
 
