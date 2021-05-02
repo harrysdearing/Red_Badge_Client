@@ -46,7 +46,6 @@ class ShowCustomers extends React.Component <ShowCustomersProps, ShowCustomersSt
 PrinterFetch = () => {
 
     let myHeaders = new Headers();
-    console.log('Printer token', this.props.token);
     myHeaders.append("Accept", "application/json");
     myHeaders.append("Authorization", `Bearer ${this.props.token}`);
     myHeaders.append("Cookie", "JSESSIONID=8BD372F56EA832409B38F5DFA008757B");
@@ -62,7 +61,6 @@ PrinterFetch = () => {
     .then(response => response.json())
     .then(json => {
         this.setState({initialId: 'Customer Selected', printerArray: json})
-        console.log('Why is it giving me an error?', json);
     })
     .catch((error) => {
         this.setState({initialId: 'Please select a customer above!'})
@@ -72,21 +70,16 @@ PrinterFetch = () => {
 renderPrinters = (names: any) => {
     this.setState({getCustomerId: names.customerId})
     this.PrinterFetch();
-    console.log('Did i get the ID', this.state.getCustomerId);
 }
 
   componentWillMount(){
       this.getCustomer();
+    //   this.PrinterFetch();
   }
-
-  componentDidMount(){
-      this.PrinterFetch();
-  }
-
 
   componentWillUnmount(){
       this.getCustomer();
-      this.PrinterFetch();
+    //   this.PrinterFetch();
   }
 
   render(){
@@ -105,7 +98,7 @@ renderPrinters = (names: any) => {
                 {this.state.initialId == 'Please select a customer above!' ?
                 <h2>Please double click on a customer from the list above.  If there are no customers, please add them from the customers tab.</h2>
                 :
-                <PrinterTable sessionToken={this.props.sessionToken} token={this.props.token} customerDB={this.state.customer} printerFetch={this.state.printerArray}/>
+                <PrinterTable sessionToken={this.props.sessionToken} token={this.props.token} customerDB={this.state.customer} printerFetch={this.state.printerArray} getCustomer={this.getCustomer} getFetch={this.PrinterFetch}/>
                 }
             </div>
         </div>

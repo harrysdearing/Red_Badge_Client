@@ -95,7 +95,6 @@ class CustomerFetch extends React.Component <FetchProps, FetchState>{
         .then((res) => res.json())
         .then((json) => {
             this.props.customer()
-            console.log('Customer Info Posted', json);
         })
         this.state.finalArray.push({
             startDate: this.state.startDate,

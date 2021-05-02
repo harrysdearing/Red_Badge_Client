@@ -88,7 +88,6 @@ class CustomerDelete2 extends React.Component <CustomerDeleteProps, CustomerDele
         .then((json) => {
             this.handleClose();
             this.Customer();
-            console.log('Successfully updated', json)
         })
       }
     

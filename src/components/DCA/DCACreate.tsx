@@ -52,7 +52,6 @@ const DCACreate: React.FC<DCAProps> = (props: DCAProps) => {
     })
     .then((res) => res.json())
     .then((json) => {
-        console.log('New DCA Connection Set Up', json);
         props.fetchDCA();
         setOpen(false);
     })

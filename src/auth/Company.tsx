@@ -12,7 +12,8 @@ interface CompanyProps {
     password: string,
     updateToken: any,
     sessionToken: any,
-    authenticated: boolean
+    authenticated: boolean,
+    showCompany(): any
 }
 
 interface CompanyState {
@@ -52,12 +53,18 @@ class Company extends React.Component <CompanyProps, CompanyState> {
             role: '',
             username: '',
             password: '',
-            open: true,
+            open: false,
             close: true
         }
     }
 
-    addCompany = (event: React.MouseEvent<HTMLButtonElement>) => {
+    handleClose = () => {
+        this.setState({
+            open: !this.state.open
+        })
+      };
+
+      addCompany = (event: React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
         fetch(`http://localhost:3000/company/registercompany`, {
             method: 'POST',
@@ -78,43 +85,23 @@ class Company extends React.Component <CompanyProps, CompanyState> {
         })
         .then((res) => res.json())
         .then((json) => {
-            console.log('New Company Set Up', json)
+            this.handleClose();
+            this.props.showCompany();
         })
         .catch((err) => console.log('Company Not Added', err))
     }
 
-    handleToggle = (event: React.MouseEvent<HTMLButtonElement> ): void => {
-
-        this.setState({
-            toggle: true,
-        })
-        console.log(this.state.toggle);
-    }
-
-    handleClose = () => {
-        this.setState({
-            open: false
-        })
-      };
-
-
-    componentDidMount(){
-        this.addCompany
-    }
-
     render(){
-        console.log('Company Props', this)
         return (
             <React.Fragment>
                 <CssBaseline />
                 <Container maxWidth="sm">
-                <Button onClick={(e: any) => {
-                    this.handleToggle(e.currentTarget.value);
+                <Button onClick={() => 
+
                     this.setState({open: true})
-                }}
+                }
                 variant="contained" color="primary"
                 >Add New Company</Button>
-                {this.state.toggle == true ?
                     <Modal
                         aria-labelledby="transition-modal-title"
                         aria-describedby="transition-modal-description"
@@ -154,13 +141,10 @@ class Company extends React.Component <CompanyProps, CompanyState> {
                             </div>
                             <br/>
                             <Button onClick={this.addCompany} variant="contained" color="primary">Save Info</Button>
-                            <Button onClick={() => this.setState({open: false})} variant="contained" color="secondary">Close</Button>
+                            <Button onClick={this.handleClose} variant="contained" color="secondary">Close</Button>
                         </div>
                         </Container>
                     </Modal>
-                :
-                <p></p>
-                }
                 </Container>
             </React.Fragment>
         )

@@ -18,7 +18,6 @@ const Signup: React.FC<SignupProps> = (props: SignupProps): any=>{
     const [authenticated, setAuthenticated] = useState(false);
     const [companyOptions, setCompanyOptions] = useState<any[]>([]);
     const [userCompany, setUserCompany] = useState(1);
-    console.log('Can I get the company?', props);
 
     const handleSubmit = (event: any) => {
         event.preventDefault()
@@ -46,6 +45,24 @@ const Signup: React.FC<SignupProps> = (props: SignupProps): any=>{
         })
     }
 
+    const getCompany = () => {
+        fetch(`http://localhost:3000/company/getcompanies`, {
+            method: 'GET',
+            headers: new Headers({
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            }),
+        })
+        .then((res) => res.json())
+        .then((json) => {
+            console.log('Am I getting the companies', json)
+            setCompanyOptions(json)
+        })
+        .catch((error) => {
+            console.log('Where are the companies', error)
+        })
+    }
+
     const handleCompany = (e: any) => {
         let data;
         console.log('What are you', companyOptions)
@@ -59,17 +76,7 @@ const Signup: React.FC<SignupProps> = (props: SignupProps): any=>{
     }
 
     useEffect(() => {
-        fetch(`http://localhost:3000/company/getcompanies`, {
-            method: 'GET',
-            headers: new Headers({
-                "Content-Type": "application/json",
-                "Accept": "application/json"
-            }),
-        })
-        .then((res) => res.json())
-        .then((json) => {
-            setCompanyOptions(json)
-        })
+        getCompany()
     }, [])
 
 
@@ -78,7 +85,7 @@ const Signup: React.FC<SignupProps> = (props: SignupProps): any=>{
             <CssBaseline />
             <Container maxWidth="sm">
                 <h2 className="siglog">SIGN UP</h2>
-                <Company fN={firstName} lN={lastName} role={role} username={username} password={password} updateToken={props.updateToken} authenticated={authenticated} sessionToken={props.sessionToken}/>
+                <Company fN={firstName} lN={lastName} role={role} username={username} password={password} updateToken={props.updateToken} authenticated={authenticated} sessionToken={props.sessionToken} showCompany={getCompany}/>
                 <form onSubmit={(e) => handleSubmit(e)}>
                     <div>
                         <label id="suLabel" htmlFor="firstName">First Name</label>

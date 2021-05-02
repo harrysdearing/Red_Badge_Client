@@ -27,7 +27,6 @@ const DCAIndex: React.FC<DCAIndexProps> = (props: DCAIndexProps) => {
     .then((json) => {
         setDCA(json.data);
         setDCAToUpdate(json.data);
-        console.log('DCA Providers', json.data);
     })
   }
 
