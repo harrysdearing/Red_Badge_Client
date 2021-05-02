@@ -1,18 +1,16 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import Button from '@material-ui/core/Button';
-import Modal from '@material-ui/core/Modal';
-import Backdrop from '@material-ui/core/Backdrop';
-import { SettingsInputAntennaRounded, SettingsInputAntennaTwoTone } from '@material-ui/icons';
+import {Modal, ModalHeader, ModalBody, Form, FormGroup, Label, Input} from 'reactstrap';
 
 interface DCAEditProps {
     sessionToken: any,
     DCAToUpdate: any,
+    updateOn: any,
     updateOff: any,
     fetchDCA: any
 }
 
 const DCAEdit: React.FC<DCAEditProps> = (props: DCAEditProps) => {
-  const [updateOpen, setUpdateOpen] = useState(true);
   const [dcaUpdateCompany, setDCAUpdateCompany] = useState(props.DCAToUpdate.dca_company);
   const [dcaUpdateUsername, setDCAUpdateUsername] = useState(props.DCAToUpdate.dca_username);
   const [dcaUpdatePassword, setDCAUpdatePassword] = useState(props.DCAToUpdate.dca_password);
@@ -21,9 +19,9 @@ const DCAEdit: React.FC<DCAEditProps> = (props: DCAEditProps) => {
   const [dcaUpdateSecret, setDCAUpdateSecret] = useState(props.DCAToUpdate.dca_secret);
   const [apiUpdatekey, setApiUpdatekey] = useState(props.DCAToUpdate.api_key);
 
-  console.log('DCA Edit Props', props);
+//   console.log('DCA Edit Props', props);
 
-const handleUpdateDCA = (event: React.MouseEvent<HTMLFormElement>): void => {
+const handleUpdateDCA = (event: React.MouseEvent<HTMLButtonElement>): void => {
   event.preventDefault();
   fetch(`http://localhost:3000/dca/updateDCA/${props.DCAToUpdate.id}`, {
       method: 'PUT',
@@ -45,71 +43,49 @@ const handleUpdateDCA = (event: React.MouseEvent<HTMLFormElement>): void => {
   }).then((res) => {
         props.fetchDCA();
         props.updateOff();
-        setUpdateOpen(false);
-  })
+        res.json()
+  }).then((json) => console.log('did you update?', json))
+  .catch((error) => console.log('why no update', error))
 }
 
-  const updateBody = (
-    <form style={{backgroundColor: 'white', margin: 'auto', justifyContent: 'center'}} onSubmit={handleUpdateDCA}>
-        <h1 id="simple-modal-title">Update DCA Connection</h1>
-        <p id="simple-modal-description">
-            Please Edit Fields Below
-        </p>
-        <div>
-            <label id="suLabel" htmlFor="dcaUpdateCompanyName">Update DCA Company Name</label>
-            <input id="textBox" onChange={(e)=>setDCAUpdateCompany(e.target.value)} name = "dcaUpdateCompanyName" value={dcaUpdateCompany}/>
-        </div>
-        <div>
-            <label id="suLabel" htmlFor="dcaUpdateUsername">Update Username</label>
-            <input id="textBox" onChange={(e)=>setDCAUpdateUsername(e.target.value)} name = "dcaUpdateUsername" value={dcaUpdateUsername}/>
-        </div>
-        <div>
-            <label id="suLabel" htmlFor="dcaUpdatePassword">Update Password</label>
-            <input id="textBox" onChange={(e)=>setDCAUpdatePassword(e.target.value)} name = "dcaUpdatePassword" value={dcaUpdatePassword}/>
-        </div>
-        <div>
-            <label id="suLabel" htmlFor="dcaUpdateUrl">Update DCA URL</label>
-            <input id="textBox" onChange={(e)=>setDCAUpdateUrl(e.target.value)} name = "dcaUpdateUrl" value={dcaUpdateUrl}/>
-        </div>
-        <div>
-            <label id="suLabel" htmlFor="dcaUpdateKey">Update Key</label>
-            <input id="textBox" onChange={(e)=>setDCAUpdateKey(e.target.value)} name = "dcaUpdateKey" value={dcaUpdateKey}/>
-        </div>
-        <div>
-            <label id="suLabel" htmlFor="dcaUpdateSecret">Update Secret</label>
-            <input id="textBox" onChange={(e)=>setDCAUpdateSecret(e.target.value)} name = "dcaUpdateSecret" value={dcaUpdateSecret}/>
-        </div>
-        <div>
-            <label id="suLabel" htmlFor="apiUpdatekey">Update API Key</label>
-            <input id="textBox" onChange={(e)=>setApiUpdatekey(e.target.value)} name = "apiUpdatekey" value={apiUpdatekey}/>
-        </div>
-        <br/>
-        <Button type="submit" variant="contained" color="primary">Save Info</Button>
-        <Button onClick={() => setUpdateOpen(false)} variant="contained" color="secondary">Close</Button>
-    </form>
-  );
-
-
   return (
-    <div>
-        {updateOpen ?
-        <Modal
-            aria-labelledby="transition-modal-title"
-            aria-describedby="transition-modal-description"
-            open={updateOpen}
-            onClose={() => setUpdateOpen(false)}
-            closeAfterTransition
-            BackdropComponent={Backdrop}
-            BackdropProps={{
-            timeout: 500,
-            }}
-        >
-            {updateBody}
-        </Modal>
-        :
-        <></>
-        }
-    </div>
+    <Modal isOpen={true}>
+        <ModalHeader>Update DCA Connection</ModalHeader>
+        <ModalBody>
+            <Form>
+                <FormGroup>
+                    <Label id="suLabel" htmlFor="dcaUpdateCompanyName">Update DCA Company Name</Label>
+                    <Input id="textBox" onChange={(e)=>setDCAUpdateCompany(e.target.value)} name = "dcaUpdateCompanyName" value={dcaUpdateCompany}/>
+                </FormGroup>
+                <FormGroup>
+                    <Label id="suLabel" htmlFor="dcaUpdateUsername">Update Username</Label>
+                    <Input id="textBox" onChange={(e)=>setDCAUpdateUsername(e.target.value)} name = "dcaUpdateUsername" value={dcaUpdateUsername}/>
+                </FormGroup>
+                <FormGroup>
+                    <Label id="suLabel" htmlFor="dcaUpdatePassword">Update Password</Label>
+                    <Input id="textBox" onChange={(e)=>setDCAUpdatePassword(e.target.value)} name = "dcaUpdatePassword" value={dcaUpdatePassword}/>
+                </FormGroup>
+                <FormGroup>
+                    <Label id="suLabel" htmlFor="dcaUpdateUrl">Update DCA URL</Label>
+                    <Input id="textBox" onChange={(e)=>setDCAUpdateUrl(e.target.value)} name = "dcaUpdateUrl" value={dcaUpdateUrl}/>
+                </FormGroup>
+                <FormGroup>
+                    <Label id="suLabel" htmlFor="dcaUpdateKey">Update Key</Label>
+                    <Input id="textBox" onChange={(e)=>setDCAUpdateKey(e.target.value)} name = "dcaUpdateKey" value={dcaUpdateKey}/>
+                </FormGroup>
+                <FormGroup>
+                    <Label id="suLabel" htmlFor="dcaUpdateSecret">Update Secret</Label>
+                    <Input id="textBox" onChange={(e)=>setDCAUpdateSecret(e.target.value)} name = "dcaUpdateSecret" value={dcaUpdateSecret}/>
+                </FormGroup>
+                <FormGroup>
+                    <Label id="suLabel" htmlFor="apiUpdatekey">Update API Key</Label>
+                    <Input id="textBox" onChange={(e)=>setApiUpdatekey(e.target.value)} name = "apiUpdatekey" value={apiUpdatekey}/>
+                </FormGroup>
+                <Button type="submit" variant="contained" color="primary" onClick={handleUpdateDCA}>Save Info</Button>
+                <Button variant="contained" color="secondary" onClick={props.updateOff}>Close</Button>
+            </Form>
+        </ModalBody>
+    </Modal>
   );
 }
 

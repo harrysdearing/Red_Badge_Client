@@ -5,7 +5,8 @@ import DCADelete from './DCADelete';
 
 interface DCAIndexProps {
     updateToken: any,
-    sessionToken: any
+    sessionToken: any,
+    token: string
 }
 
 const DCAIndex: React.FC<DCAIndexProps> = (props: DCAIndexProps) => {
@@ -36,23 +37,22 @@ const DCAIndex: React.FC<DCAIndexProps> = (props: DCAIndexProps) => {
     
     const editUpdateDCA = (dca: any) => {
         setDCAToUpdate(dca);
-        console.log('can i edit', dca);
     }
     const updateOn = () => {
         setUpdateActive(true);
     }
     const updateOff = () => {
-        setUpdateActive(false);
+        setUpdateActive(!updateActive);
     }
 
 
   return (
     <div>
-        <DCACreate fetchDCA={fetchDCA} updateToken={props.updateToken} sessionToken={props.sessionToken}/>
+        <DCACreate fetchDCA={fetchDCA} updateToken={props.updateToken} sessionToken={props.sessionToken} token={props.token}/>
         <br/>
         <br/>
-        <DCADelete DCA={DCA} editupdateDCA={editUpdateDCA} fetchDCA={fetchDCA} updateOn={updateOn} sessionToken={props.sessionToken}/>
-        {updateActive ? <DCAEdit DCAToUpdate={DCAToUpdate} updateOff={updateOff} sessionToken={props.sessionToken} fetchDCA={fetchDCA}/>
+        <DCADelete DCA={DCA} editUpdateDCA={editUpdateDCA} fetchDCA={fetchDCA} updateOn={updateOn} sessionToken={props.sessionToken}/>
+        {updateActive ? <DCAEdit DCAToUpdate={DCAToUpdate} updateOn={updateOn} updateOff={updateOff} sessionToken={props.sessionToken} fetchDCA={fetchDCA}/>
         : <></>}
     </div>
   )

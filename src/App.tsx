@@ -12,7 +12,7 @@ import Header from './home/Navbar2';
 //   clickLogout: any
 // }
 
-function App(props: any) {
+function App() {
   const [sessionToken, setSessionToken] = useState('');
 
   const updateToken = (newToken: string) => {

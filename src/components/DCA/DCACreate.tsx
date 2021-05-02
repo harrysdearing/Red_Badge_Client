@@ -6,7 +6,8 @@ import Backdrop from '@material-ui/core/Backdrop';
 interface DCAProps {
     updateToken: any,
     sessionToken: any,
-    fetchDCA(): any
+    fetchDCA(): any,
+    token: string
 }
 
 const DCACreate: React.FC<DCAProps> = (props: DCAProps) => {
@@ -40,7 +41,7 @@ const DCACreate: React.FC<DCAProps> = (props: DCAProps) => {
                 dca_url: dcaUrl,
                 dca_key: dcaKey,
                 dca_secret: dcaSecret,
-                api_key: apikey
+                api_key: props.token
             }
         }),
         headers: new Headers ({
@@ -90,7 +91,7 @@ const DCACreate: React.FC<DCAProps> = (props: DCAProps) => {
         </div>
         <div>
             <label id="suLabel" htmlFor="apikey">API Key</label>
-            <input id="textBox" onChange={(e)=>setApikey(e.target.value)} name = "apikey" value={apikey}/>
+            <input id="textBox" name = "apikey" value={props.token}/>
         </div>
         <br/>
         <Button onClick={handleDCA} variant="contained" color="primary">Save Info</Button>

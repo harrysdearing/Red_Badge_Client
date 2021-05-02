@@ -41,7 +41,7 @@ const useStyles = makeStyles({
 interface DCADeleteProps {
     sessionToken: any,
     DCA: any,
-    editupdateDCA: any,
+    editUpdateDCA: any,
     updateOn: any,
     fetchDCA: any
 }
@@ -76,7 +76,7 @@ const DCADelete: React.FC<DCADeleteProps> = (props: DCADeleteProps) => {
               <StyledTableCell align="center">{dca.dca_key}</StyledTableCell>
               <StyledTableCell align="center">{dca.dca_secret}</StyledTableCell>
               <StyledTableCell align="center">{dca.api_key}</StyledTableCell>
-              <StyledTableCell align="center"><Button variant="contained" color="primary" onClick={() => {props.editupdateDCA(dca); props.updateOn()}}>Update</Button></StyledTableCell>
+              <StyledTableCell align="center"><Button variant="contained" color="primary" onClick={() => {props.editUpdateDCA(dca); props.updateOn()}}>Update</Button></StyledTableCell>
               <StyledTableCell align="center"><Button variant="contained" color="secondary" onClick={() => {deleteDCA(dca)}}>Delete</Button></StyledTableCell>
           </StyledTableRow>
       )

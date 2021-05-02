@@ -39,22 +39,11 @@ const Header: React.FC<Navbar2Props> = (props: Navbar2Props) => {
       <AppBar position="static">
         <Toolbar>
           <IconButton edge="start" color="inherit" aria-label="menu">
-            {/* <MenuIcon /> */}
           </IconButton>
           <Typography variant="h6" className={classes.title}>
             E-Z Billing
           </Typography>
           <Button onClick={props.clickLogout}>Logout</Button>
-          {/* <ToggleButton onClick={toggle}>
-            <Button onClick={props.clickLogout}>Logout</Button> */}
-              {/* <Collapse unmountOnExit>
-                    <Nav className="ml-auto" navbar>
-                        <NavItem>
-                            <Button onClick={props.clickLogout}>Logout</Button>
-                        </NavItem>
-                    </Nav>
-              </Collapse> */}
-          {/* </ToggleButton> */}
         </Toolbar>
       </AppBar>
     </div>
