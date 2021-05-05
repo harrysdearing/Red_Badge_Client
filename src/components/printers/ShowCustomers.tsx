@@ -12,7 +12,8 @@ interface ShowCustomersState {
     getCustomerId: any,
     getCustomer: any,
     initialId: string,
-    printerArray: any[]
+    printerArray: any[],
+    printerTable: any[]
 
 }
 
@@ -24,11 +25,11 @@ class ShowCustomers extends React.Component <ShowCustomersProps, ShowCustomersSt
         getCustomerId: '',
         getCustomer: '',
         initialId: '',
-        printerArray: []
+        printerArray: [],
+        printerTable: []
     }
-    this.getCustomer = this.getCustomer.bind(this);
   }
-  getCustomer () {
+  getCustomer = () => {
     fetch(`http://localhost:3000/customer/getcustomer`, {
         method: 'GET',
         headers: new Headers({
@@ -45,6 +46,24 @@ class ShowCustomers extends React.Component <ShowCustomersProps, ShowCustomersSt
 
 PrinterFetch = () => {
 
+    if (this.state.getCustomerId !== ''){
+        fetch(`http://localhost:3000/printer/getallprinters/${this.state.getCustomerId}`, {
+            method: 'GET',
+            headers: new Headers({
+                "Content-Type": "application/json",
+                "Accept": "application/json",
+                "Authorization": this.props.sessionToken
+            }),
+        })
+        .then((res) => res.json())
+        .then((json) => {
+            this.setState({printerTable: json})
+            this.PrinterFetch();
+        })
+        .catch((error) => {
+            console.log('Why are there no printers', error);
+        })
+
     let myHeaders = new Headers();
     myHeaders.append("Accept", "application/json");
     myHeaders.append("Authorization", `Bearer ${this.props.token}`);
@@ -60,12 +79,37 @@ PrinterFetch = () => {
     fetch(`https://insight.axessmps.com/PortalAPI/api/devices?customerId=${this.state.getCustomerId}&includeExtendedFields=true`, requestOptions)
     .then(response => response.json())
     .then(json => {
+        
+        this.state.printerTable.filter((word) => !json.customerId.includes(word))
         this.setState({initialId: 'Customer Selected', printerArray: json})
     })
     .catch((error) => {
         this.setState({initialId: 'Please select a customer above!'})
     });
 }
+}
+
+Printers = () => {
+    if (this.state.getCustomerId !== ''){
+    fetch(`http://localhost:3000/printer/getallprinters/${this.state.getCustomerId}`, {
+        method: 'GET',
+        headers: new Headers({
+            "Content-Type": "application/json",
+            "Accept": "application/json",
+            "Authorization": this.props.sessionToken
+        }),
+    })
+    .then((res) => res.json())
+    .then((json) => {
+        this.setState({printerTable: json})
+    })
+    .catch((error) => {
+        console.log('Why are there no printers', error);
+    })
+    }
+}
+
+
 
 renderPrinters = (names: any) => {
     this.setState({getCustomerId: names.customerId})
@@ -74,12 +118,10 @@ renderPrinters = (names: any) => {
 
   componentWillMount(){
       this.getCustomer();
-    //   this.PrinterFetch();
   }
 
   componentWillUnmount(){
       this.getCustomer();
-    //   this.PrinterFetch();
   }
 
   render(){
@@ -98,7 +140,9 @@ renderPrinters = (names: any) => {
                 {this.state.initialId == 'Please select a customer above!' ?
                 <h2>Please double click on a customer from the list above.  If there are no customers, please add them from the customers tab.</h2>
                 :
-                <PrinterTable sessionToken={this.props.sessionToken} token={this.props.token} customerDB={this.state.customer} printerFetch={this.state.printerArray} getCustomer={this.getCustomer} getFetch={this.PrinterFetch}/>
+                <div>
+                    <PrinterTable sessionToken={this.props.sessionToken} token={this.props.token} customerDB={this.state.customer} printerFetch={this.state.printerArray} getCustomer={this.getCustomer} getFetch={this.PrinterFetch} customerId={this.state.getCustomerId} printerTable={this.state.printerTable} renderPrinters={this.Printers}/>
+                </div>
                 }
             </div>
         </div>

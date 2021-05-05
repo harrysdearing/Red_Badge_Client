@@ -1,5 +1,6 @@
 // import { Buffer } from 'buffer';
 import React from 'react';
+import BillingTable from './BillingTable';
 import Button from '@material-ui/core/Button';
 import Table from "@material-ui/core/Table";
 import TableHead from "@material-ui/core/TableHead";
@@ -11,8 +12,11 @@ import '../style.css';
 interface PrinterTableProps {
     sessionToken: any,
     token: string,
+    customerId: number,
     customerDB: any[],
     printerFetch: any[],
+    printerTable: any[],
+    renderPrinters(): any,
     getCustomer(): any,
     getFetch(): any
 }
@@ -57,7 +61,7 @@ class PrinterTable extends React.Component <PrinterTableProps, PrinterTableState
         }
     }
 
-    postPrinters = (event: React.MouseEvent<HTMLButtonElement>): void => {
+    postPrinters = (event: React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault()
         fetch(`http://localhost:3000/printer/registerprinter`, {
             method: 'POST',
@@ -86,8 +90,6 @@ class PrinterTable extends React.Component <PrinterTableProps, PrinterTableState
         .then((res) => res.json())
         .then((json) => {
             console.log('Printers Posted', json);
-            this.props.getCustomer();
-            this.props.getFetch();
         })
         .catch((error) => {
             console.log('Why did the printers not post', error)
@@ -96,9 +98,12 @@ class PrinterTable extends React.Component <PrinterTableProps, PrinterTableState
 
 
 
+
+
     render(){
         return (
             <div>
+                <BillingTable sessionToken={this.props.sessionToken} customerId={this.props.customerId} renderPrinters={this.props.renderPrinters()} printerTable={this.props.printerTable}/>
                 <h2>Printers To Add</h2>
                 <Table>
                     <TableHead color="inherit" >

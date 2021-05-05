@@ -61,7 +61,6 @@ const DCADelete: React.FC<DCADeleteProps> = (props: DCADeleteProps) => {
       });
     };
 
-    console.log('delete props', props);
 
   const DCAMapper = () => {
     return props.DCA.map((dca: any, index: any) => {

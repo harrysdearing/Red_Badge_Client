@@ -89,11 +89,11 @@ const Signup: React.FC<SignupProps> = (props: SignupProps): any=>{
                 <form onSubmit={(e) => handleSubmit(e)}>
                     <div>
                         <label id="suLabel" htmlFor="firstName">First Name</label>
-                        <input id="textBox" onChange={(e)=>setFirstName(e.target.value)} name = "firstName" value={firstName}/>
+                        <input onChange={(e)=>setFirstName(e.target.value)} name = "firstName" value={firstName}/>
                     </div>
                     <div>
                         <label id="suLabel" htmlFor="lastName">Last Name</label>
-                        <input id="textBox" onChange={(e)=>setLastName(e.target.value)} name = "lastName" value={lastName}/>
+                        <input onChange={(e)=>setLastName(e.target.value)} name = "lastName" value={lastName}/>
                     </div>
                     <div>
                         <select onChange={(e) => setRole(e.target.value)} name="role" value={role}>
@@ -118,11 +118,11 @@ const Signup: React.FC<SignupProps> = (props: SignupProps): any=>{
                     </div>
                     <div>
                         <label id="suLabel" htmlFor="username">Username</label>
-                        <input id="textBox" onChange={(e)=>setUsername(e.target.value)} name = "username" value={username}/>
+                        <input onChange={(e)=>setUsername(e.target.value)} name = "username" value={username}/>
                     </div>
                     <div>
                         <label id="suLabel" htmlFor="password">Password</label>
-                        <input type='password' id="textBox" onChange={(e)=>setPassword(e.target.value)} name = "password" value={password}/>
+                        <input type='password' onChange={(e)=>setPassword(e.target.value)} name = "password" value={password}/>
                     </div>
 
                     {authenticated ? 

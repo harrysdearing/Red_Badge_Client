@@ -24,24 +24,27 @@ const Login = (props: any)=>{
                 setAuthenticated(true);
             }
         })
+        .catch((error) => {
+            console.log('Login error', error)
+        })
     }
 
     useEffect(() => {
         handleSubmit
-    })
+    }, [])
     return(
         <React.Fragment>
             <CssBaseline />
             <Container maxWidth="sm">
                 <h2 className="siglog">LOG IN</h2>
-                <Form onSubmit={(e)=>handleSubmit(e)}>
+                <Form onSubmit={(event)=>handleSubmit(event)}>
                     <FormGroup>
                         <Label id="suLabel" htmlFor="username">Username</Label>
-                        <Input id="textBox" onChange={(e)=>setUser(e.target.value)} name = "username" value={username}/>
+                        <Input onChange={(e)=>setUser(e.target.value)} name = "username" value={username}/>
                     </FormGroup>
                     <FormGroup>
                         <Label id="suLabel" htmlFor="password">Password</Label>
-                        <Input type='password' id="textBox" onChange={(e)=>setPassword(e.target.value)} name = "password" value={password}/>
+                        <Input type='password' onChange={(e)=>setPassword(e.target.value)} name = "password" value={password}/>
                     </FormGroup>
                     {authenticated ? 
                         <Modal isOpen={true}>
