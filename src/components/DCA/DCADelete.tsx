@@ -12,7 +12,7 @@ import Button from '@material-ui/core/Button';
 const StyledTableCell = withStyles((theme: Theme) =>
   createStyles({
     head: {
-      backgroundColor: theme.palette.common.black,
+      backgroundColor: 'rgb(204, 81, 23)',
       color: theme.palette.common.white,
     },
     body: {

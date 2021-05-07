@@ -2,12 +2,55 @@ import React,{useState, useEffect} from 'react';
 import Company from './Company';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Container from '@material-ui/core/Container';
-import { Modal, ModalHeader, ModalBody, Button } from 'reactstrap';
+import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
+import Input from '@material-ui/core/Input';
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
+import Modal from '@material-ui/core/Modal';
+import Button from '@material-ui/core/Button';
+import './auth.css';
 
 interface SignupProps {
     updateToken: any,
     sessionToken: any
 }
+
+function rand() {
+    return Math.round(Math.random() * 20) - 10;
+  }
+  
+  function getModalStyle() {
+    const top = 50 + rand();
+    const left = 50 + rand();
+  
+    return {
+      top: `${top}%`,
+      left: `${left}%`,
+      transform: `translate(-${top}%, -${left}%)`,
+    };
+  }
+  
+  const useStyles = makeStyles((theme: Theme) =>
+    createStyles({
+      paper: {
+        position: 'absolute',
+        width: 1200,
+        backgroundColor: theme.palette.background.paper,
+        border: '2px solid #000',
+        boxShadow: theme.shadows[5],
+        padding: theme.spacing(2, 4, 3),
+      },
+      formControl: {
+        margin: theme.spacing(1),
+        minWidth: 120,
+      },
+      selectEmpty: {
+        marginTop: theme.spacing(2),
+      },
+    }),
+  );
 
 const Signup: React.FC<SignupProps> = (props: SignupProps): any=>{
     const [firstName,setFirstName]=useState('');
@@ -15,7 +58,9 @@ const Signup: React.FC<SignupProps> = (props: SignupProps): any=>{
     const [role,setRole]=useState('Sales Representative');
     const [username,setUsername]=useState('');
     const [password,setPassword]=useState('');
-    const [authenticated, setAuthenticated] = useState(false);
+    const classes = useStyles();
+    const [modalStyle] = React.useState(getModalStyle);
+    const [authenticated, setAuthenticated] = React.useState(false);
     const [companyOptions, setCompanyOptions] = useState<any[]>([]);
     const [userCompany, setUserCompany] = useState(1);
 
@@ -75,6 +120,17 @@ const Signup: React.FC<SignupProps> = (props: SignupProps): any=>{
         }
     }
 
+    const handleClose = () => {
+        setAuthenticated(!authenticated);
+    };
+
+    const body = (
+        <div style={modalStyle} className={classes.paper}>
+          <h2 id="simple-modal-title">Please Try Again With Valid Email address and Password</h2>
+          <Button variant="contained" color="secondary" onClick={handleClose}>Close</Button>
+        </div>
+    );
+
     useEffect(() => {
         getCompany()
     }, [])
@@ -83,57 +139,70 @@ const Signup: React.FC<SignupProps> = (props: SignupProps): any=>{
     return(
         <React.Fragment>
             <CssBaseline />
-            <Container maxWidth="sm">
-                <h2 className="siglog">SIGN UP</h2>
+            <div>
+                <h3 className="siglog">SIGN UP</h3>
                 <Company fN={firstName} lN={lastName} role={role} username={username} password={password} updateToken={props.updateToken} authenticated={authenticated} sessionToken={props.sessionToken} showCompany={getCompany}/>
+                <br/>
                 <form onSubmit={(e) => handleSubmit(e)}>
                     <div>
-                        <label id="suLabel" htmlFor="firstName">First Name</label>
-                        <input onChange={(e)=>setFirstName(e.target.value)} name = "firstName" value={firstName}/>
+                        <InputLabel id="suLabel" htmlFor="firstName">First Name</InputLabel>
+                        <Input onChange={(e)=>setFirstName(e.target.value)} name = "firstName" value={firstName} id="signup"/>
                     </div>
                     <div>
-                        <label id="suLabel" htmlFor="lastName">Last Name</label>
-                        <input onChange={(e)=>setLastName(e.target.value)} name = "lastName" value={lastName}/>
+                        <InputLabel id="suLabel" htmlFor="lastName">Last Name</InputLabel>
+                        <Input onChange={(e)=>setLastName(e.target.value)} name = "lastName" value={lastName} id="signup"/>
                     </div>
+                    <FormControl className={classes.formControl}>
+                        <InputLabel htmlFor="role">Select Your Role</InputLabel>
+                        <Select 
+                        value={role} 
+                        onChange={(e) => setRole(e.target.value)} 
+                        displayEmpty
+                        className={classes.selectEmpty}
+                        name="role"
+                        id="signup"
+                        >
+                            <MenuItem value={'Sales Representative'}>Sales Representative</MenuItem>
+                            <MenuItem value={'Manager'}>Manager</MenuItem>
+                            <MenuItem value={'Administrator'}>Administrator</MenuItem>
+                        </Select>
+                    </FormControl>
                     <div>
-                        <select onChange={(e) => setRole(e.target.value)} name="role" value={role}>
-                            <option>Sales Representative</option>
-                            <option>Manager</option>
-                            <option>Administrator</option>
+                        <label htmlFor="company" id="selectCompanyLabel">Select Your Company</label>
+                        <select 
+                            onChange={handleCompany} 
+                            name="company"
+                            id="selectCompany"
+                        >
+                        {companyOptions.map((company) => {
+                            return (
+                                <option key={company.id} id="selectOption">
+                                    {company.companyName}
+                                </option>
+                            )
+                        })}
                         </select>
                     </div>
                     <div>
-                        <label>
-                            Select Your Current Company
-                            <select onChange={handleCompany}>
-                            {companyOptions.map((company) => {
-                                return (
-                                    <option key={company.id}>
-                                        {company.companyName}
-                                    </option>
-                                )
-                            })}
-                            </select>
-                        </label>
+                        <InputLabel id="suLabel" htmlFor="username">Username</InputLabel>
+                        <Input onChange={(e)=>setUsername(e.target.value)} name = "username" value={username} id="signup"/>
                     </div>
                     <div>
-                        <label id="suLabel" htmlFor="username">Username</label>
-                        <input onChange={(e)=>setUsername(e.target.value)} name = "username" value={username}/>
+                        <InputLabel id="suLabel" htmlFor="password">Password</InputLabel>
+                        <Input type='password' onChange={(e)=>setPassword(e.target.value)} name = "password" value={password} id="signup"/>
                     </div>
-                    <div>
-                        <label id="suLabel" htmlFor="password">Password</label>
-                        <input type='password' onChange={(e)=>setPassword(e.target.value)} name = "password" value={password}/>
-                    </div>
-
-                    {authenticated ? 
-                        <Modal isOpen={true}>
-                            <ModalHeader closeButton id="modalHeader">User Already Exists</ModalHeader>
-                            <ModalBody id="modalBody">This User Already Exists.  Please Create A New User Or "CLICK HERE" Below To Login With An Existing User.</ModalBody>
-                            <Button variant="secondary" onClick={() => setAuthenticated(false)} id="modalButton">Close</Button>
-                        </Modal> : <br/> }
-                    <button id="suBtn" type="submit">Sign up</button>
+                    <br/>
+                    <Modal
+                        open={authenticated}
+                        onClose={handleClose}
+                        aria-labelledby="simple-modal-title"
+                        aria-describedby="simple-modal-description"
+                    >
+                        {body}
+                    </Modal>
+                    <Button id="suBtn" type="submit" variant="contained" color="primary">Sign up</Button>
                 </form>
-            </Container>
+            </div>
         </React.Fragment>
     )
 }

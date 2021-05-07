@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import Button from '@material-ui/core/Button';
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
+import './dca.css';
 
 interface DCAProps {
     updateToken: any,

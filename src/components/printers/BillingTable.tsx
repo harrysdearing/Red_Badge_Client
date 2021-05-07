@@ -15,8 +15,7 @@ import '../style.css';
 interface BillingTableProps {
     sessionToken: any,
     customerId: any,
-    printerTable: any,
-    renderPrinters(): any
+    printerTable: any
 }
 
 
@@ -58,28 +57,6 @@ class BillingTable extends React.Component <BillingTableProps, BillingTableState
         }
     }
 
-    
-    // Printers = () => {
-    //     fetch(`http://localhost:3000/printer/getallprinters/${this.props.customerId}`, {
-    //         method: 'GET',
-    //         headers: new Headers({
-    //             "Content-Type": "application/json",
-    //             "Accept": "application/json",
-    //             "Authorization": this.props.sessionToken
-    //         }),
-    //     })
-    //     .then((res) => res.json())
-    //     .then((json) => {
-    //         // this.renderPrinters()
-    //         this.setState({printerTable: json})
-
-    //         console.log('Did I get the printers', json)
-    //     })
-    //     .catch((error) => {
-    //         console.log('Why are there no printers', error);
-    //     })
-    // }
-
 
     handleClose = () => {
         this.setState({toggle: !this.state.toggle})
@@ -111,7 +88,6 @@ class BillingTable extends React.Component <BillingTableProps, BillingTableState
         .then((res) => res.json())
         .then((json) => {
             this.handleClose();
-            this.props.renderPrinters();
         })
       }
     
@@ -124,8 +100,8 @@ class BillingTable extends React.Component <BillingTableProps, BillingTableState
               "Authorization": this.props.sessionToken
           })
         })
-        .then(() => {
-            this.props.renderPrinters()
+        .then((json) => {
+            console.log('Deleted printers', json)
         })
         .catch((error) => console.log('Why are you not deleting?', error))
     }

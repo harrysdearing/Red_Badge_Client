@@ -1,12 +1,12 @@
 // import { Buffer } from 'buffer';
 import React from 'react';
+import CustomerFetchHeader from './CustomerFetchHeader';
 import Button from '@material-ui/core/Button';
 import Table from "@material-ui/core/Table";
-import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import TableCell from "@material-ui/core/TableCell";
 import TableBody from "@material-ui/core/TableBody";
-import '../style.css';
+import './customers.css';
 
 interface FetchProps {
     sessionToken: any,
@@ -116,18 +116,9 @@ class CustomerFetch extends React.Component <FetchProps, FetchState>{
     render(){
         return (
             <div>
-                <h1>Customers To Add</h1>
+                <h2>Customers To Add</h2>
                     <Table>
-                        <TableHead color="inherit" >
-                            <TableRow>
-                                <TableCell>Customer ID</TableCell>
-                                <TableCell>Customer Name</TableCell>
-                                <TableCell>Contract Start Date</TableCell>
-                                <TableCell>Contract End Date</TableCell>
-                                <TableCell>Billing Cycle</TableCell>
-                                <TableCell>Save Info</TableCell>
-                            </TableRow>
-                        </TableHead>
+                        <CustomerFetchHeader />
                         <TableBody>
                             {this.state.customerData.map((groups: any) => {
                                 return (

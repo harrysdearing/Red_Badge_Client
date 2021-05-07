@@ -1,13 +1,12 @@
 // import { Buffer } from 'buffer';
 import React from 'react';
-import BillingTable from './BillingTable';
+import FetchHeader from './FetchStyle';
 import Button from '@material-ui/core/Button';
 import Table from "@material-ui/core/Table";
-import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import TableCell from "@material-ui/core/TableCell";
 import TableBody from "@material-ui/core/TableBody";
-import '../style.css';
+import './printers.css';
 
 interface PrinterTableProps {
     sessionToken: any,
@@ -16,9 +15,7 @@ interface PrinterTableProps {
     customerDB: any[],
     printerFetch: any[],
     printerTable: any[],
-    renderPrinters(): any,
-    getCustomer(): any,
-    getFetch(): any
+    getCustomer(): any
 }
 
 
@@ -89,38 +86,20 @@ class PrinterTable extends React.Component <PrinterTableProps, PrinterTableState
         })
         .then((res) => res.json())
         .then((json) => {
-            console.log('Printers Posted', json);
+            console.log('Printers posted', json)
         })
         .catch((error) => {
             console.log('Why did the printers not post', error)
         })
     }
 
-
-
-
-
     render(){
         return (
             <div>
-                <BillingTable sessionToken={this.props.sessionToken} customerId={this.props.customerId} renderPrinters={this.props.renderPrinters()} printerTable={this.props.printerTable}/>
+                {/* <BillingTable sessionToken={this.props.sessionToken} customerId={this.props.customerId} printerTable={this.props.printerTable}/> */}
                 <h2>Printers To Add</h2>
                 <Table>
-                    <TableHead color="inherit" >
-                        <TableRow>
-                            <TableCell>Printer Model</TableCell>
-                            <TableCell>Asset Number</TableCell>
-                            <TableCell>Serial Number</TableCell>
-                            <TableCell>Is Printer Billable?</TableCell>
-                            <TableCell>Base Volume Mono</TableCell>
-                            <TableCell>Base Volume Color</TableCell>
-                            <TableCell>Base Rate</TableCell>
-                            <TableCell>Mono CPP</TableCell>
-                            <TableCell>Color CPP</TableCell>
-                            <TableCell>Flat Rate</TableCell>
-                            <TableCell>Save</TableCell>
-                        </TableRow>
-                    </TableHead>
+                    <FetchHeader />
                     <TableBody>
                         { this.props.printerFetch.map((printers) => {
                             return (

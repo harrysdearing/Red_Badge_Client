@@ -2,7 +2,7 @@ import React from "react";
 import CustomerDelete2 from '../components/customers/CustomerDelete2';
 import ShowCustomers from '../components/printers/ShowCustomers';
 import DCAIndex from '../components/DCA/DCAIndex';
-import Reports from '../components/Reports';
+import Reports from '../components/reports/Reports';
 import {
   BrowserRouter as Router,
   Switch,
@@ -95,7 +95,7 @@ class Home extends React.Component <HomeProps, HomeState>{
             <ShowCustomers sessionToken={this.props.sessionToken} token={this.state.token}/>
           </Route>
           <Route path="/reports">
-            <Reports />
+            <Reports sessionToken={this.props.sessionToken} token={this.state.token}/>
           </Route>
         </Switch>
       </div>

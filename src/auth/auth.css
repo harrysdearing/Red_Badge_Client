@@ -1,0 +1,83 @@
+#signup {
+    width: 300px;
+}
+
+form {
+    padding: 5px 5px 5px 5px;
+    margin: 5px;
+}
+
+#selectCompanyLabel {
+    color: rgba(0, 0, 0, 0.54);
+    padding: 0;
+    font-size: 1rem;
+    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+    font-weight: 400;
+    line-height: 1;
+    letter-spacing: 0.00938em;
+}
+
+#selectCompany {
+    width: auto;
+    height: auto;
+    overflow: hidden;
+    font-size: 1rem;
+    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+    font-weight: bold;
+    background-color: lightskyblue;
+    text-overflow: ellipsis;
+    font: inherit;
+    color: currentColor;
+    width: 300px;
+    border: 0;
+    height: 1.1876em;
+    margin: 0;
+    display: block;
+    padding: 6px 0 7px;
+    min-width: 0;
+    background: none;
+    box-sizing: content-box;
+    animation-name: mui-auto-fill-cancel;
+    letter-spacing: inherit;
+    animation-duration: 10ms;
+    -webkit-tap-highlight-color: transparent;
+
+}
+
+#selectOption {
+    height: auto;
+    overflow: hidden;
+    min-height: 1.1876em;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+h1 {
+    padding: 20px;
+    text-align: center;
+    background: rgb(204, 81, 23);
+    color: white;
+    font-size: 30px;
+}
+
+h2 {
+    padding: 20px;
+    text-align: center;
+    font-size: 30px;
+}
+
+h3 {
+    padding: 20px;
+    text-align: center;
+    background: #3f51b5;
+    color: white;
+    font-size: 30px;
+}
+
+h4 {
+    padding: 20px;
+    text-align: center;
+    background: #41b6a6;
+    color: white;
+    font-size: 30px;
+}
