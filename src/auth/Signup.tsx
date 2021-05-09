@@ -1,4 +1,4 @@
-import React,{useState, useEffect} from 'react';
+import React, {useState, useEffect} from 'react';
 import Company from './Company';
 import APIURL from '../helpers/Environment';
 import CssBaseline from '@material-ui/core/CssBaseline';
