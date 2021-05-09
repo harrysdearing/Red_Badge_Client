@@ -1,5 +1,6 @@
 #signup {
     width: 300px;
+    height: auto;
 }
 
 form {
@@ -30,15 +31,10 @@ form {
     color: currentColor;
     width: 300px;
     border: 0;
-    height: 1.1876em;
-    margin: 0;
     display: block;
     padding: 6px 0 7px;
     min-width: 0;
     background: none;
-    box-sizing: content-box;
-    animation-name: mui-auto-fill-cancel;
-    letter-spacing: inherit;
     animation-duration: 10ms;
     -webkit-tap-highlight-color: transparent;
 
@@ -48,6 +44,7 @@ form {
     height: auto;
     overflow: hidden;
     min-height: 1.1876em;
+    font-size: 18px;
     white-space: nowrap;
     text-overflow: ellipsis;
 }

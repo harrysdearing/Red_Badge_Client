@@ -10,6 +10,9 @@ import TableBody from "@material-ui/core/TableBody";
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
+import FormGroup from '@material-ui/core/FormGroup';
+import Input from '@material-ui/core/Input';
+import InputLabel from '@material-ui/core/InputLabel';
 import './printers.css';
 
 
@@ -69,7 +72,7 @@ class ShowCustomers extends React.Component <ShowCustomersProps, ShowCustomersSt
         serialNumber: '',
         ipAddress: '',
         status: '',
-        billable: false,
+        billable: true,
         baseMono: 0,
         baseColor: 0,
         baseRate: 0.00,
@@ -287,7 +290,11 @@ handleDelete = (data: any) => {
                                                 <p>{data.serialNumber}</p>
                                             </TableCell>
                                             <TableCell>
-                                                <p>{data.billable}</p>
+                                            {data.billable == true ?
+                                                <p>true</p>
+                                                :
+                                                <p>false</p>
+                                            }
                                             </TableCell>
                                             <TableCell>
                                                 <p>{data.base_mono_volume}</p>
@@ -329,6 +336,7 @@ handleDelete = (data: any) => {
                                                 aria-describedby="transition-modal-description"
                                                 open={this.state.toggle}
                                                 onClose={this.handleClose}
+                                                style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}
                                                 closeAfterTransition
                                                 BackdropComponent={Backdrop}
                                                 BackdropProps={{
@@ -336,48 +344,48 @@ handleDelete = (data: any) => {
                                                 }}
                                                 >
                                                     <Fade in={this.state.toggle}>
-                                                    <form style={{backgroundColor: 'white', justifyContent: 'center'}}>
+                                                    <form style={{backgroundColor: 'white', justifyContent: 'center', width: '500px'}}>
                                                         <h1>Update Printers</h1>
-                                                        <div>
-                                                            <label id="suLabel" htmlFor="UpdatePrinterModel">Update Printer Model</label>
-                                                            <input name="UpdatePrinterModel" onChange={(e)=>this.setState({UpdatePrinterModel: e.target.value})} value={this.state.UpdatePrinterModel}/>
-                                                        </div>
-                                                        <div>
-                                                            <label id="suLabel" htmlFor="AssetNumber">Update Asset Number</label>
-                                                            <input id="TextBox" name="UpdateAssetNumber" onChange={(e)=>this.setState({UpdateAssetNumber: e.target.value})} value={this.state.UpdateAssetNumber}/>
-                                                        </div>
-                                                        <div>
-                                                            <label id="suLabel" htmlFor="UpdateSerialNumber">Update Serial Number</label>
-                                                            <input id="textBox" name = "UpdateSerialNumber" onChange={(e)=>this.setState({UpdateSerialNumber: e.target.value})} value={this.state.UpdateSerialNumber}/>
-                                                        </div>
-                                                        <div>
-                                                            <label id="suLabel" htmlFor="UpdateBillable">Update Billable</label>
-                                                            <input id="textBox" name = "UpdateBillable" onChange={(e)=>this.setState({UpdateBillable: e.target.value})} value={this.state.UpdateBillable}/>
-                                                        </div>
-                                                        <div>
-                                                            <label id="suLabel" htmlFor="UpdateBaseMono">Update Base Mono Volume</label>
-                                                            <input id="textBox" name = "UpdateBaseMono" onChange={(e)=>this.setState({UpdateBaseMono: e.target.value})} value={this.state.UpdateBaseMono}/>
-                                                        </div>
-                                                        <div>
-                                                            <label id="suLabel" htmlFor="UpdateBaseColor">Update Base Color Volume</label>
-                                                            <input id="textBox" name = "UpdateBaseColor" onChange={(e)=>this.setState({UpdateBaseColor: e.target.value})} value={this.state.UpdateBaseColor}/>
-                                                        </div>
-                                                        <div>
-                                                            <label id="suLabel" htmlFor="UpdateBaseRate">Update Base Rate</label>
-                                                            <input id="textBox" name = "UpdateBaseRate" onChange={(e)=>this.setState({UpdateBaseRate: e.target.value})} value={this.state.UpdateBaseRate}/>
-                                                        </div>
-                                                        <div>
-                                                            <label id="suLabel" htmlFor="UpdateMonoCPP">Update Mono CPP</label>
-                                                            <input id="textBox" name = "UpdateMonoCPP" onChange={(e)=>this.setState({UpdateMonoCPP: e.target.value})} value={this.state.UpdateMonoCPP}/>
-                                                        </div>
-                                                        <div>
-                                                            <label id="suLabel" htmlFor="UpdateColorCPP">Update Color CPP</label>
-                                                            <input id="textBox" name = "UpdateColorCPP" onChange={(e)=>this.setState({UpdateColorCPP: e.target.value})} value={this.state.UpdateColorCPP}/>
-                                                        </div>
-                                                        <div>
-                                                            <label id="suLabel" htmlFor="UpdateFlatRate">Update Flat Rate</label>
-                                                            <input id="textBox" name = "UpdateFlatRate" onChange={(e)=>this.setState({UpdateFlatRate: e.target.value})} value={this.state.UpdateFlatRate}/>
-                                                        </div>
+                                                        <FormGroup>
+                                                            <InputLabel htmlFor="UpdatePrinterModel">Update Printer Model</InputLabel>
+                                                            <Input name="UpdatePrinterModel" onChange={(e)=>this.setState({UpdatePrinterModel: e.target.value})} value={this.state.UpdatePrinterModel}/>
+                                                        </FormGroup>
+                                                        <FormGroup>
+                                                            <InputLabel htmlFor="AssetNumber">Update Asset Number</InputLabel>
+                                                            <Input name="UpdateAssetNumber" onChange={(e)=>this.setState({UpdateAssetNumber: e.target.value})} value={this.state.UpdateAssetNumber}/>
+                                                        </FormGroup>
+                                                        <FormGroup>
+                                                            <InputLabel htmlFor="UpdateSerialNumber">Update Serial Number</InputLabel>
+                                                            <Input name = "UpdateSerialNumber" onChange={(e)=>this.setState({UpdateSerialNumber: e.target.value})} value={this.state.UpdateSerialNumber}/>
+                                                        </FormGroup>
+                                                        <FormGroup>
+                                                            <InputLabel htmlFor="UpdateBillable">Update Billable</InputLabel>
+                                                            <Input name = "UpdateBillable" onChange={(e)=>this.setState({UpdateBillable: e.target.value})} value={this.state.UpdateBillable}/>
+                                                        </FormGroup>
+                                                        <FormGroup>
+                                                            <InputLabel htmlFor="UpdateBaseMono">Update Base Mono Volume</InputLabel>
+                                                            <Input type="number" name = "UpdateBaseMono" onChange={(e)=>this.setState({UpdateBaseMono: Number(e.target.value)})} value={this.state.UpdateBaseMono}/>
+                                                        </FormGroup>
+                                                        <FormGroup>
+                                                            <InputLabel htmlFor="UpdateBaseColor">Update Base Color Volume</InputLabel>
+                                                            <Input type="number" name = "UpdateBaseColor" onChange={(e)=>this.setState({UpdateBaseColor: Number(e.target.value)})} value={this.state.UpdateBaseColor}/>
+                                                        </FormGroup>
+                                                        <FormGroup>
+                                                            <InputLabel htmlFor="UpdateBaseRate">Update Base Rate</InputLabel>
+                                                            <Input type="number" name = "UpdateBaseRate" onChange={(e)=>this.setState({UpdateBaseRate: Number(e.target.value)})} value={this.state.UpdateBaseRate}/>
+                                                        </FormGroup>
+                                                        <FormGroup>
+                                                            <InputLabel htmlFor="UpdateMonoCPP">Update Mono CPP</InputLabel>
+                                                            <Input type="number" name = "UpdateMonoCPP" onChange={(e)=>this.setState({UpdateMonoCPP: Number(e.target.value)})} value={this.state.UpdateMonoCPP}/>
+                                                        </FormGroup>
+                                                        <FormGroup>
+                                                            <InputLabel htmlFor="UpdateColorCPP">Update Color CPP</InputLabel>
+                                                            <Input type="number" name = "UpdateColorCPP" onChange={(e)=>this.setState({UpdateColorCPP: Number(e.target.value)})} value={this.state.UpdateColorCPP}/>
+                                                        </FormGroup>
+                                                        <FormGroup>
+                                                            <InputLabel htmlFor="UpdateFlatRate">Update Flat Rate</InputLabel>
+                                                            <Input type="number" name = "UpdateFlatRate" onChange={(e)=>this.setState({UpdateFlatRate: Number(e.target.value)})} value={this.state.UpdateFlatRate}/>
+                                                        </FormGroup>
                                                         <br/>
                                                         <Button onClick={this.handleUpdatePrinters} variant="contained" color="primary">Update Info</Button>
                                                         <Button onClick={this.handleClose} variant="contained" color="secondary">Close</Button>

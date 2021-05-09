@@ -8,6 +8,9 @@ import TableBody from "@material-ui/core/TableBody";
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
+import FormGroup from '@material-ui/core/FormGroup';
+import Input from '@material-ui/core/Input';
+import InputLabel from '@material-ui/core/InputLabel';
 import CustomerFetch from './CustomerFetch';
 import CompletedHeader from './CompletedHeader';
 import './customers.css';
@@ -160,6 +163,7 @@ class CustomerDelete2 extends React.Component <CustomerDeleteProps, CustomerDele
                                             <Modal
                                             aria-labelledby="transition-modal-title"
                                             aria-describedby="transition-modal-description"
+                                            style={{display: 'flex', alignItems: 'center', justifyContent: 'center'}}
                                             open={this.state.toggle}
                                             onClose={this.handleClose}
                                             closeAfterTransition
@@ -169,28 +173,28 @@ class CustomerDelete2 extends React.Component <CustomerDeleteProps, CustomerDele
                                             }}
                                             >
                                                 <Fade in={this.state.toggle}>
-                                                <form style={{backgroundColor: 'white', justifyContent: 'center'}}>
+                                                <form style={{backgroundColor: 'white', justifyContent: 'center', width: '500px'}}>
                                                     <h4 id="ModalHeader">Update Customer</h4>
-                                                    <div>
-                                                        <label id="suLabel" htmlFor="CustomerId">Update Customer Id</label>
-                                                        <input name="UpdateCustomerId" onChange={(e)=>this.setState({UpdateCustomerId: e.target.value})} value={this.state.UpdateCustomerId}/>
-                                                    </div>
-                                                    <div>
-                                                        <label id="suLabel" htmlFor="CustomerName">Update Customer Name</label>
-                                                        <input id="TextBox" name="UpdateCustomerName" onChange={(e)=>this.setState({UpdateCustomerName: e.target.value})} value={this.state.UpdateCustomerName}/>
-                                                    </div>
-                                                    <div>
-                                                        <label id="suLabel" htmlFor="UpdateStartDate">Update Start Date</label>
-                                                        <input type="date" name = "UpdateStartDate" onChange={(e)=>this.setState({UpdateStartDate: e.target.value})} value={this.state.UpdateStartDate}/>
-                                                    </div>
-                                                    <div>
-                                                        <label id="suLabel" htmlFor="UpdateExpDate">Update DCA Company Name</label>
-                                                        <input type="date" name = "UpdateExpDate" onChange={(e)=>this.setState({UpdateExpDate: e.target.value})} value={this.state.UpdateExpDate}/>
-                                                    </div>
-                                                    <div>
-                                                        <label id="suLabel" htmlFor="UpdateBillingCycle">Update DCA Company Name</label>
-                                                        <input id="textBox" name = "UpdateBillingCycle" onChange={(e)=>this.setState({UpdateBillingCycle: e.target.value})} value={this.state.UpdateBillingCycle}/>
-                                                    </div>
+                                                    <FormGroup>
+                                                        <InputLabel id="suLabel" htmlFor="CustomerId">Update Customer Id</InputLabel>
+                                                        <Input name="UpdateCustomerId" onChange={(e)=>this.setState({UpdateCustomerId: e.target.value})} value={this.state.UpdateCustomerId}/>
+                                                    </FormGroup>
+                                                    <FormGroup>
+                                                        <InputLabel id="suLabel" htmlFor="CustomerName">Update Customer Name</InputLabel>
+                                                        <Input id="TextBox" name="UpdateCustomerName" onChange={(e)=>this.setState({UpdateCustomerName: e.target.value})} value={this.state.UpdateCustomerName}/>
+                                                    </FormGroup>
+                                                    <FormGroup>
+                                                        <InputLabel id="suLabel" htmlFor="UpdateStartDate">Update Start Date</InputLabel>
+                                                        <Input type="date" name = "UpdateStartDate" onChange={(e)=>this.setState({UpdateStartDate: e.target.value})} value={this.state.UpdateStartDate}/>
+                                                    </FormGroup>
+                                                    <FormGroup>
+                                                        <InputLabel id="suLabel" htmlFor="UpdateExpDate">Update Expiration Date</InputLabel>
+                                                        <Input type="date" name = "UpdateExpDate" onChange={(e)=>this.setState({UpdateExpDate: e.target.value})} value={this.state.UpdateExpDate}/>
+                                                    </FormGroup>
+                                                    <FormGroup>
+                                                        <InputLabel id="suLabel" htmlFor="UpdateBillingCycle">Update DCA Company Name</InputLabel>
+                                                        <Input id="textBox" name = "UpdateBillingCycle" onChange={(e)=>this.setState({UpdateBillingCycle: e.target.value})} value={this.state.UpdateBillingCycle}/>
+                                                    </FormGroup>
                                                     <br/>
                                                     <Button onClick={this.handleUpdateCustomer} variant="contained" color="primary">Update Info</Button>
                                                     <Button onClick={this.handleClose} variant="contained" color="secondary">Close</Button>

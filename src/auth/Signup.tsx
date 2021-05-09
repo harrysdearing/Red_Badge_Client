@@ -138,8 +138,8 @@ const Signup: React.FC<SignupProps> = (props: SignupProps): any=>{
 
     return(
         <React.Fragment>
-            <CssBaseline />
-            <div>
+            <CssBaseline/>
+            <Container maxWidth="xl">
                 <h3 className="siglog">SIGN UP</h3>
                 <Company fN={firstName} lN={lastName} role={role} username={username} password={password} updateToken={props.updateToken} authenticated={authenticated} sessionToken={props.sessionToken} showCompany={getCompany}/>
                 <br/>
@@ -153,14 +153,14 @@ const Signup: React.FC<SignupProps> = (props: SignupProps): any=>{
                         <Input onChange={(e)=>setLastName(e.target.value)} name = "lastName" value={lastName} id="signup"/>
                     </div>
                     <FormControl className={classes.formControl}>
-                        <InputLabel htmlFor="role">Select Your Role</InputLabel>
+                        <InputLabel htmlFor="role" id="selectCompanyLabel">Select Your Role</InputLabel>
                         <Select 
                         value={role} 
-                        onChange={(e) => setRole(e.target.value)} 
+                        onChange={(e: any) => setRole(e.target.value)} 
                         displayEmpty
                         className={classes.selectEmpty}
                         name="role"
-                        id="signup"
+                        id="selectCompany"
                         >
                             <MenuItem value={'Sales Representative'}>Sales Representative</MenuItem>
                             <MenuItem value={'Manager'}>Manager</MenuItem>
@@ -176,7 +176,7 @@ const Signup: React.FC<SignupProps> = (props: SignupProps): any=>{
                         >
                         {companyOptions.map((company) => {
                             return (
-                                <option key={company.id} id="selectOption">
+                                <option key={company.id}>
                                     {company.companyName}
                                 </option>
                             )
@@ -202,7 +202,7 @@ const Signup: React.FC<SignupProps> = (props: SignupProps): any=>{
                     </Modal>
                     <Button id="suBtn" type="submit" variant="contained" color="primary">Sign up</Button>
                 </form>
-            </div>
+            </Container>
         </React.Fragment>
     )
 }
