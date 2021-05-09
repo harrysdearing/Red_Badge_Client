@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import APIURL from '../../helpers/Environment';
 import Button from '@material-ui/core/Button';
 import FormGroup from '@material-ui/core/FormGroup';
 import Input from '@material-ui/core/Input';
@@ -55,7 +56,7 @@ const DCAEdit: React.FC<DCAEditProps> = (props: DCAEditProps) => {
 
 const handleUpdateDCA = (event: React.MouseEvent<HTMLButtonElement>): void => {
   event.preventDefault();
-  fetch(`http://localhost:3000/dca/updateDCA/${props.DCAToUpdate.id}`, {
+  fetch(`${APIURL}/dca/updateDCA/${props.DCAToUpdate.id}`, {
       method: 'PUT',
       body: JSON.stringify({
           dca: {

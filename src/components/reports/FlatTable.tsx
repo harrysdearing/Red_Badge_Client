@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import FlatHeader from './FlatHeader';
+import APIURL from '../../helpers/Environment';
 import Table from "@material-ui/core/Table";
 import TableRow from "@material-ui/core/TableRow";
 import TableCell from "@material-ui/core/TableCell";
@@ -34,7 +35,7 @@ class FlatTable extends React.Component <FlatTableProps, FlatTableState>{
     }
     PrinterFetch = () => {
 
-        fetch(`http://localhost:3000/printer/getprinters`, {
+        fetch(`${APIURL}/printer/getprinters`, {
             method: 'GET',
             headers: new Headers({
                 "Content-Type": "application/json",

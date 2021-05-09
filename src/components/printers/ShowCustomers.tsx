@@ -2,6 +2,7 @@ import React from "react";
 // import PrinterTable from './PrinterTable';
 import FetchHeader from './FetchStyle';
 import Header from './TableStyles';
+import APIURL from '../../helpers/Environment';
 import Button from '@material-ui/core/Button';
 import Table from "@material-ui/core/Table";
 import TableRow from "@material-ui/core/TableRow";
@@ -94,7 +95,7 @@ class ShowCustomers extends React.Component <ShowCustomersProps, ShowCustomersSt
     }
   }
   getCustomer = () => {
-    fetch(`http://localhost:3000/customer/getcustomer`, {
+    fetch(`${APIURL}/customer/getcustomer`, {
         method: 'GET',
         headers: new Headers({
             "Content-Type": "application/json",
@@ -111,7 +112,7 @@ class ShowCustomers extends React.Component <ShowCustomersProps, ShowCustomersSt
 PrinterFetch = (customerId: string) => {
 
     if (customerId !== '' ){
-        fetch(`http://localhost:3000/printer/getallprinters/${customerId}`, {
+        fetch(`${APIURL}/printer/getallprinters/${customerId}`, {
             method: 'GET',
             headers: new Headers({
                 "Content-Type": "application/json",
@@ -165,7 +166,7 @@ handleClose = () => {
 
 postPrinters = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault()
-    fetch(`http://localhost:3000/printer/registerprinter`, {
+    fetch(`${APIURL}/printer/registerprinter`, {
         method: 'POST',
         body: JSON.stringify({
             printer: {
@@ -200,7 +201,7 @@ postPrinters = (event: React.MouseEvent<HTMLButtonElement>) => {
 
 handleUpdatePrinters = (event: React.MouseEvent<HTMLButtonElement>): void => {
     event.preventDefault();
-    fetch(`http://localhost:3000/printer/updateprinter/${this.state.printerId}`, {
+    fetch(`${APIURL}/printer/updateprinter/${this.state.printerId}`, {
         method: 'PUT',
         body: JSON.stringify({
             printer: {
@@ -230,7 +231,7 @@ handleUpdatePrinters = (event: React.MouseEvent<HTMLButtonElement>): void => {
 
 
 handleDelete = (data: any) => {
-  fetch(`http://localhost:3000/printer/deleteprinter/${data.id}`, {
+  fetch(`${APIURL}/printer/deleteprinter/${data.id}`, {
       method: 'DELETE',
       headers: new Headers ({
           "Content-Type": "application/json",

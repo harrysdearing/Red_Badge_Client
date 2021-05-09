@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react';
+import APIURL from '../helpers/Environment';
 import FormGroup from '@material-ui/core/FormGroup';
 import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
@@ -46,7 +47,7 @@ const Login = (props: any)=>{
     
     const handleSubmit=(event: any)=>{
         event.preventDefault();
-        fetch(`http://localhost:3000/user/login`,{
+        fetch(`${APIURL}/user/login`,{
             method:'POST',
             body:JSON.stringify({user:{username:username,password:password}}),
             headers: new Headers({

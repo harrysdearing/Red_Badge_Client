@@ -1,5 +1,6 @@
 import React,{useState, useEffect} from 'react';
 import Company from './Company';
+import APIURL from '../helpers/Environment';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Container from '@material-ui/core/Container';
 import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
@@ -66,7 +67,7 @@ const Signup: React.FC<SignupProps> = (props: SignupProps): any=>{
 
     const handleSubmit = (event: any) => {
         event.preventDefault()
-        fetch(`http://localhost:3000/user/register`,{
+        fetch(`${APIURL}/user/register`,{
             method:'POST',
             body:JSON.stringify({user:{
                 firstName: firstName,
@@ -91,7 +92,7 @@ const Signup: React.FC<SignupProps> = (props: SignupProps): any=>{
     }
 
     const getCompany = () => {
-        fetch(`http://localhost:3000/company/getcompanies`, {
+        fetch(`${APIURL}/company/getcompanies`, {
             method: 'GET',
             headers: new Headers({
                 "Content-Type": "application/json",

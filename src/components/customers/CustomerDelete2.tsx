@@ -1,5 +1,6 @@
 // import { Buffer } from 'buffer';
 import React from 'react';
+import APIURL from '../../helpers/Environment';
 import Button from '@material-ui/core/Button';
 import Table from "@material-ui/core/Table";
 import TableRow from "@material-ui/core/TableRow";
@@ -50,7 +51,7 @@ class CustomerDelete2 extends React.Component <CustomerDeleteProps, CustomerDele
     }
     
     Customer = () => {
-        fetch(`http://localhost:3000/customer/getcustomer`, {
+        fetch(`${APIURL}/customer/getcustomer`, {
             method: 'GET',
             headers: new Headers({
                 "Content-Type": "application/json",
@@ -70,7 +71,7 @@ class CustomerDelete2 extends React.Component <CustomerDeleteProps, CustomerDele
 
     handleUpdateCustomer = (event: React.MouseEvent<HTMLButtonElement>): void => {
         event.preventDefault();
-        fetch(`http://localhost:3000/customer/updatecustomer/${this.state.propsId}`, {
+        fetch(`${APIURL}/customer/updatecustomer/${this.state.propsId}`, {
             method: 'PUT',
             body: JSON.stringify({
                 customer: {
@@ -95,7 +96,7 @@ class CustomerDelete2 extends React.Component <CustomerDeleteProps, CustomerDele
     
 
     handleDelete = (array: any) => {
-      fetch(`http://localhost:3000/customer/deletecustomer/${array.id}`, {
+      fetch(`${APIURL}/customer/deletecustomer/${array.id}`, {
           method: 'DELETE',
           headers: new Headers ({
               "Content-Type": "application/json",

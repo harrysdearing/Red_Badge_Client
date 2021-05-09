@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react';
+import APIURL from '../../helpers/Environment';
 import Button from '@material-ui/core/Button';
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
@@ -32,7 +33,7 @@ const DCACreate: React.FC<DCAProps> = (props: DCAProps) => {
 
   const handleDCA = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
-    fetch(`http://localhost:3000/dca/adddca`, {
+    fetch(`${APIURL}/dca/adddca`, {
         method: 'POST',
         body: JSON.stringify({
             dca: {

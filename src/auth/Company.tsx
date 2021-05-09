@@ -3,6 +3,7 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import Container from '@material-ui/core/Container';
 import {Modal, Button} from '@material-ui/core';
 import Backdrop from '@material-ui/core/Backdrop';
+import APIURL from '../helpers/Environment';
 
 interface CompanyProps {
     fN: string,
@@ -66,7 +67,7 @@ class Company extends React.Component <CompanyProps, CompanyState> {
 
       addCompany = (event: React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
-        fetch(`http://localhost:3000/company/registercompany`, {
+        fetch(`${APIURL}/company/registercompany`, {
             method: 'POST',
             body: JSON.stringify({
                 company: {

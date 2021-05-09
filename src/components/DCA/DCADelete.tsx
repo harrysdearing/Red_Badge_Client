@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react';
+import APIURL from '../../helpers/Environment';
 import { withStyles, Theme, createStyles, makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -50,7 +51,7 @@ const DCADelete: React.FC<DCADeleteProps> = (props: DCADeleteProps) => {
   const classes = useStyles();
 
   const deleteDCA = (dca: any) => {
-      fetch(`http://localhost:3000/dca/deleteDCA/${dca.id}`, {
+      fetch(`${APIURL}/dca/deleteDCA/${dca.id}`, {
         method: "DELETE",
         headers: new Headers({
           "Content-Type": "application/json",

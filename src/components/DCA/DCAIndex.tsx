@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react';
+import APIURL from '../../helpers/Environment';
 import DCACreate from './DCACreate';
 import DCAEdit from './DCAEdit';
 import DCADelete from './DCADelete';
@@ -15,7 +16,7 @@ const DCAIndex: React.FC<DCAIndexProps> = (props: DCAIndexProps) => {
     const [DCAToUpdate, setDCAToUpdate] = useState({});
 
   const fetchDCA = () => {
-    fetch(`http://localhost:3000/dca/getdca`, {
+    fetch(`${APIURL}/dca/getdca`, {
         method: 'GET',
         headers: new Headers({
             "Content-Type": "application/json",

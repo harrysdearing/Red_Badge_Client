@@ -1,6 +1,7 @@
 // import { Buffer } from 'buffer';
 import React from 'react';
 import CustomerFetchHeader from './CustomerFetchHeader';
+import APIURL from '../../helpers/Environment';
 import Button from '@material-ui/core/Button';
 import Table from "@material-ui/core/Table";
 import TableRow from "@material-ui/core/TableRow";
@@ -76,7 +77,7 @@ class CustomerFetch extends React.Component <FetchProps, FetchState>{
 
     handleSave = ( event: React.MouseEvent<HTMLButtonElement> ) => {
         event.preventDefault();
-        fetch(`http://localhost:3000/customer/registercustomer`, {
+        fetch(`${APIURL}/customer/registercustomer`, {
             method: 'POST',
             body: JSON.stringify({
                 customer: {
